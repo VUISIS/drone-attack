@@ -127,6 +127,14 @@ int main(int argc, char** argv)
         
             return true;
         });
+    
+    mavlink_passthrough.intercept_outgoing_messages_async(
+        [&our_sysid](const mavlink_message_t& message) {
+            // process_command_long(message, our_sysid);
+            std::cout << "* Message ID: " << message.msgid << message.compid;
+        
+            return true;
+        });
 
     // Take off
     std::cout << "Taking off...\n";
